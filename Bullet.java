@@ -14,13 +14,13 @@ public class Bullet extends GameObject
     {
         super(x,y,degrees,id);
         setRadius(radius);
-        vx = 300 *(int) Math.sin(Math.toRadians(degrees));
-        vy = 300 *(int) Math.cos(Math.toRadians(degrees));
+        vx = (int)(9 * Math.sin(Math.toRadians(degrees)));
+        vy = (int)(9 * Math.cos(Math.toRadians(degrees)));
     }
 
     public void tick(){
         x+=vx;
-        y+=vy;
+        y-=vy;
     }
     
     public void render(Graphics g){
