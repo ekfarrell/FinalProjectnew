@@ -6,22 +6,27 @@ import java.awt.geom.*;
 public class Bullet extends GameObject
 {
     private int x;
-
+    private int radius = 5;
+    private int vx,vy;
     /**
      * Default constructor for objects of class Bullet
      */
     public Bullet(int x, int y, int degrees, ID id)
     {
         super(x,y,degrees,id);
+        setRadius(radius);
+        vx = 300 *(int) Math.sin(Math.toRadians(degrees));
+        vy = 300 *(int) Math.cos(Math.toRadians(degrees));
     }
 
     public void tick(){
+        x+=vx;
+        y+=vy;
     }
     
     public void render(Graphics g){
         g.setColor(Color.red);
         g.fillOval(x,y,radius,radius);
-    
     }
 
     public boolean hitReg(LinkedList<GameObject> objects){
