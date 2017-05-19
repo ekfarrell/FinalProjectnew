@@ -35,12 +35,19 @@ public class Main {
     //radius/length of shape
     int shapeLength = 50;
     int degrees = 0;
+    //player inital x and y
     int x = 500;
     int y = 500;
+    //the player
     Player player1;
-    int x2 = 300;
-    int y2 = 0;
-    int size2 = 3;
+    //random for asteroid size and xy cordinates
+    Random r = new Random();
+    //asteroid variables
+    int astroX;
+    int astroY;
+    int astroDegree;
+    int side;
+    int astrocount = 0;
     
     //Main method runs the constructor
     public static void main(String[] args) {
@@ -194,7 +201,32 @@ public class Main {
     void draw(){ 
        g.setColor(Color.black);
        g.fillRect(0, 0, gameWidth, gameHeight);
-        
+        side = r.nextInt(4)+1;
+        //asteroids spawning from top
+        if(side == 1){
+            astroX = r.nextInt(1200);
+            astroY = -50;
+            astroDegree = r.nextInt(90)+135;
+        }
+        //asteroids spawning from bottom
+        if(side == 2){
+            astroX = r.nextInt(1200);
+            astroY = 950;
+            astroDegree = r.nextInt(90)-45;
+        }
+        //asteroids spawning from left
+        if(side == 3){
+            astroX = -50;
+            astroY = r.nextInt(900);
+            astroDegree = r.nextInt(90)+90;
+        }
+        //asteroids spawning from right
+        if(side == 4){
+            astroX = 1250;
+            astroY = r.nextInt(900);
+            astroDegree = r.nextInt(90)-90;
+        }
+        //Asteroid newAstro = new Asteroid(astroX,astroY,astroDegree,3,ID.Asteroid);
         objects.add(player1);
        //objects.add(new Player(x,y,degrees,ID.Player));
        //objects.add(new Asteroid(x2,y2,degrees,size2,ID.Player));
@@ -205,6 +237,10 @@ public class Main {
            if (objects.get(i).getId() == ID.Player){
                objects.get(i).setAngularVelocity(0);
                
+            }
+           if (astrocount < 10){
+               objects.add(new Asteroid(astroX,astroY,astroDegree,3,ID.Asteroid));
+               astrocount++;
             }
        }
        

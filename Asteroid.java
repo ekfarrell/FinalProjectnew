@@ -35,15 +35,13 @@ public class Asteroid extends GameObject
     }
     
     public void tick(){
-        degrees += angularVelocity;
-        
         //indexs the x, based on the direction it is going
-        x += Math.cos(Math.toRadians((degrees-120)*-1)) *  5 +
-        Math.sin(Math.toRadians((degrees-120)*-1)) * 5;
+        x += Math.cos(Math.toRadians((degrees-130)*-1)) *  8 +
+        Math.sin(Math.toRadians((degrees-130)*-1)) * 8;
         
         //indexs the y, based on the direction it is going
-        y -= -Math.cos(Math.toRadians((degrees-120)*-1)) * 5 +
-        Math.sin(Math.toRadians((degrees-120)*-1)) * 5;
+        y -= -Math.cos(Math.toRadians((degrees-130)*-1)) * 5 +
+        Math.sin(Math.toRadians((degrees-130)*-1)) * 5;
     }
     
     public void render(Graphics g){
