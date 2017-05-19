@@ -6,4 +6,6 @@ comment1.params=
 comment1.target=void\ tick()
 comment2.params=g
 comment2.target=void\ render(java.awt.Graphics)
-numComments=3
+comment3.params=objects
+comment3.target=boolean\ hitReg(java.util.LinkedList)
+numComments=4
