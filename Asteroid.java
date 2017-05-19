@@ -36,12 +36,12 @@ public class Asteroid extends GameObject
     
     public void tick(){
         //indexs the x, based on the direction it is going
-        x += Math.cos(Math.toRadians((degrees-130)*-1)) *  8 +
-        Math.sin(Math.toRadians((degrees-130)*-1)) * 8;
+        x += Math.cos(Math.toRadians((degrees-130)*-1)) *  6 +
+        Math.sin(Math.toRadians((degrees-130)*-1)) * 6;
         
         //indexs the y, based on the direction it is going
-        y -= -Math.cos(Math.toRadians((degrees-130)*-1)) * 5 +
-        Math.sin(Math.toRadians((degrees-130)*-1)) * 5;
+        y -= -Math.cos(Math.toRadians((degrees-130)*-1)) * 6 +
+        Math.sin(Math.toRadians((degrees-130)*-1)) * 6;
     }
     
     public void render(Graphics g){
@@ -54,5 +54,18 @@ public class Asteroid extends GameObject
         astrolist.add(new Asteroid(this.x-20,this.y,degrees+45,this.size-1,ID.Asteroid));
         astrolist.add(new Asteroid(this.x-20,this.y,degrees-45,this.size-1,ID.Asteroid));
         return astrolist;
+    }
+    
+     public boolean hitReg(LinkedList<GameObject> objects){
+        int distance;
+        for(int object = 1;object <= objects.size(); object++){
+            if(objects.get(object).getId() == ID.Asteroid){
+                distance = (int)Math.sqrt(Math.pow((x-objects.get(object).getX()),2)+Math.pow(y-objects.get(object).getY(),2));
+                if(distance < objects.get(object).getRadius()){
+                  return true;  
+                }
+            }
+        }
+        return false; 
     }
 }

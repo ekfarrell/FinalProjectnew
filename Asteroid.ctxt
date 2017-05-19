@@ -8,4 +8,6 @@ comment2.params=g
 comment2.target=void\ render(java.awt.Graphics)
 comment3.params=
 comment3.target=java.util.LinkedList\ destroy()
-numComments=4
+comment4.params=objects
+comment4.target=boolean\ hitReg(java.util.LinkedList)
+numComments=5

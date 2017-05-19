@@ -236,7 +236,6 @@ public class Main {
            objects.get(i).render(g);
            if (objects.get(i).getId() == ID.Player){
                objects.get(i).setAngularVelocity(0);
-               
             }
            if (astrocount < 10){
                objects.add(new Asteroid(astroX,astroY,astroDegree,3,ID.Asteroid));
