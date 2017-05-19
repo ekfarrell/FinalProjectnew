@@ -5,7 +5,6 @@ import java.awt.geom.*;
 
 public class Bullet extends GameObject
 {
-    private int x;
     private int radius = 5;
     private int vx,vy;
     /**
