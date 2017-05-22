@@ -1,4 +1,3 @@
-//Imports
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -12,6 +11,9 @@ import java.util.*;
 import java.awt.*;
 import javax.swing.*;
 
+import java.applet.Applet;
+import java.applet.AudioClip;
+import java.net.*;
 public class Main {
     
     //sets the fps
@@ -65,7 +67,7 @@ public class Main {
     
     void init(){
         player1 = new Player(x,y,degrees,ID.Player);
-        
+        objects.add(player1);
         
         //initializes the frame
         //The string inside is the name of the frame
@@ -132,22 +134,12 @@ public class Main {
      * Changes the coordinates of the shape based on input
      */
     void update(){
-        //if the right arrow key is pressed
-        if(handler.isKeyDown(KeyEvent.VK_RIGHT))
-        {
-            degrees+=5;
-            player1.setAngularVelocity(5);
-        }
-        //if the left arrow key is down
-        if(handler.isKeyDown(KeyEvent.VK_LEFT))
-        {
-            degrees-=5;
-            player1.setAngularVelocity(-5);
-        }
+        
+       
         //if the up arrow key is down
         if(handler.isKeyDown(KeyEvent.VK_UP))
         { 
-         player1.setX(player1.getX() + (int)(Math.cos(Math.toRadians((degrees-130)*-1)) *  5 + (Math.sin(Math.toRadians((degrees-130)*-1)) * 5)));
+         player1.setX(player1.getX() + (int)(Math.cos(Math.toRadians((player1.getDegrees()-130)*-1)) *  5 + (Math.sin(Math.toRadians((player1.getDegrees()-130)*-1)) * 5)));
          player1.setY(player1.getY() - (int)(-Math.cos(Math.toRadians((degrees-130)*-1)) * 5 + Math.sin(Math.toRadians((degrees-130)*-1)) * 5));
          // x += Math.cos(Math.toRadians((degrees-120)*-1)) *  5 + Math.sin(Math.toRadians((degrees-120)*-1)) * 5;
          //y -= -Math.cos(Math.toRadians((degrees-120)*-1)) * 5 + Math.sin(Math.toRadians((degrees-120)*-1)) * 5;
@@ -180,6 +172,20 @@ public class Main {
         
         if(handler.isKeyDown(KeyEvent.VK_SPACE)){
             objects.add(new Bullet(player1.getX(),player1.getY(),player1.getDegrees(),ID.Bullet));
+            Sound.SOUND1.play();
+        }
+        
+         //if the left arrow key is down
+        if(handler.isKeyDown(KeyEvent.VK_LEFT))
+        {
+            degrees-=5;
+            player1.setAngularVelocity(-5);
+        }
+        //if the right arrow key is pressed
+        if(handler.isKeyDown(KeyEvent.VK_RIGHT))
+        {
+            degrees+=5;
+            player1.setAngularVelocity(5);
         }
         
         
@@ -201,33 +207,9 @@ public class Main {
     void draw(){ 
        g.setColor(Color.black);
        g.fillRect(0, 0, gameWidth, gameHeight);
-        side = r.nextInt(4)+1;
-        //asteroids spawning from top
-        if(side == 1){
-            astroX = r.nextInt(1200);
-            astroY = -50;
-            astroDegree = r.nextInt(90)+135;
-        }
-        //asteroids spawning from bottom
-        if(side == 2){
-            astroX = r.nextInt(1200);
-            astroY = 950;
-            astroDegree = r.nextInt(90)-45;
-        }
-        //asteroids spawning from left
-        if(side == 3){
-            astroX = -50;
-            astroY = r.nextInt(900);
-            astroDegree = r.nextInt(90)+90;
-        }
-        //asteroids spawning from right
-        if(side == 4){
-            astroX = 1250;
-            astroY = r.nextInt(900);
-            astroDegree = r.nextInt(90)-90;
-        }
+       
         //Asteroid newAstro = new Asteroid(astroX,astroY,astroDegree,3,ID.Asteroid);
-        objects.add(player1);
+        
        //objects.add(new Player(x,y,degrees,ID.Player));
        //objects.add(new Asteroid(x2,y2,degrees,size2,ID.Player));
        
@@ -237,11 +219,70 @@ public class Main {
            if (objects.get(i).getId() == ID.Player){
                objects.get(i).setAngularVelocity(0);
             }
-           if (astrocount < 10){
-               objects.add(new Asteroid(astroX,astroY,astroDegree,3,ID.Asteroid));
-               astrocount++;
+           
+           if(objects.get(i).getX()<-51){
+               if(objects.get(i).getId() == ID.Asteroid)
+                astrocount--;
+               objects.remove(i);
+               i--;
+               continue;
             }
-       }
+           if(objects.get(i).getX()>1251){
+            if(objects.get(i).getId() == ID.Asteroid)
+                astrocount--;
+            objects.remove(i);
+            i--;
+            continue;
+            }
+           if(objects.get(i).getY()<-51){
+            if(objects.get(i).getId() == ID.Asteroid)
+                astrocount--;
+            objects.remove(i);
+            i--;
+            continue;
+            }     
+           if(objects.get(i).getY()>951){
+            if(objects.get(i).getId() == ID.Asteroid)
+                astrocount--;
+               objects.remove(i);
+            i--;
+             
+            continue;
+           }
+           if (astrocount < 10){
+                side = r.nextInt(4)+1;;
+                //asteroids spawning from top
+                if(side == 1){
+                    astroX = r.nextInt(1200);
+                    astroY = -50;
+                    astroDegree = r.nextInt(90)+135;
+                }
+                //asteroids spawning from bottom
+                if(side == 2){
+                    astroX = r.nextInt(1200);
+                    astroY = 950;
+                    astroDegree = r.nextInt(90)-45;
+                }
+                //asteroids spawning from left
+                if(side == 3){
+                    astroX = -50;
+                    astroY = r.nextInt(900);
+                    astroDegree = r.nextInt(90)+90;
+                }
+                //asteroids spawning from right
+                if(side == 4){
+                    astroX = 1250;
+                    astroY = r.nextInt(900);
+                    astroDegree = r.nextInt(90)-90;
+                }
+                    objects.add(new Asteroid(astroX,astroY,astroDegree,3,ID.Asteroid));
+                    astrocount++;
+            }
+             System.out.println(astrocount);   
+                
+        }
+           
+       
        
        
        
