@@ -340,8 +340,6 @@ public class Main {
                    }
                }
            }
-           
-           
         }
         if(isGameOver)
         {
