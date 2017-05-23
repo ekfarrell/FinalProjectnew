@@ -54,6 +54,7 @@ public class Main {
     Image gameEnd;
     
     boolean isRunning = true;
+    boolean isGameOver= false;
     
     //Main method runs the constructor
     public static void main(String[] args) {
@@ -81,6 +82,8 @@ public class Main {
         frame.setLocationRelativeTo(null);
         //Makes it so when you close the window the program stops
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //turns on anti aliasing
+        
         //sets the frame so you can see it
         frame.setVisible(true);
         
@@ -213,7 +216,7 @@ public class Main {
     void draw(){ 
        g.setColor(Color.black);
        g.fillRect(0, 0, gameWidth, gameHeight);
-       
+      
         //Asteroid newAstro = new Asteroid(astroX,astroY,astroDegree,3,ID.Asteroid);
         
        //objects.add(new Player(x,y,degrees,ID.Player));
@@ -287,15 +290,12 @@ public class Main {
            {
                if (player1.hitReg(objects.get(i)))
                { 
-                   frame.dispose();
-                   String[] args={};
-                   GameOver.main(args);
-                  
+                   //objects.remove(player1);
+                   isGameOver = true;
                }
            }
            //should breakup asteroid when they are hit by bullets
-           
-           for (int j = 0; j<objects.size();j++){
+           /*for (int j = 0; j<objects.size();j++){
                if(objects.get(j).getId() == ID.Asteroid)
                {
                    if(objects.get(j).getX()+objects.get(j).getRadius() > objects.get(i).getX() && objects.get(j).getX() - objects.get(j).getRadius() < objects.get(i).getX())
@@ -314,20 +314,42 @@ public class Main {
                       }
                    }
                }
+           }*/
+           
+           if(objects.get(i).getId() == ID.Asteroid){
+               for (int j = 0; j< objects.size();j++)
+               {
+                   if (objects.get(j).getId() == ID.Bullet)
+                   {
+                       if(objects.get(i).getX()+objects.get(i).getRadius() > objects.get(j).getX() &&
+                          objects.get(i).getX() - objects.get(i).getRadius() < objects.get(j).getX())
+                       {
+                           if(objects.get(i).getY()+objects.get(i).getRadius() > objects.get(j).getY() &&
+                              objects.get(i).getY() - objects.get(i).getRadius() < objects.get(j).getY())
+                          {
+                              if(objects.get(j).getSize()-1 != 0){
+                                  objects.add(new Asteroid(objects.get(i).getX()-30,objects.get(j).getY(),degrees+45,objects.get(i).getSize()-1,ID.Asteroid));
+                                  objects.add(new Asteroid(objects.get(i).getX()+30,objects.get(j).getY(),degrees-45,objects.get(i).getSize()-1,ID.Asteroid));
+                                  objects.remove(j);
+                                }
+                                else{
+                                    objects.remove(j);
+                                }
+                          }
+                      }
+                   }
+               }
            }
            
-        }
-       
-       
            
-       
-       
-       
-       
-       
-        //sets color to black and draws it to the size of the frame on the buffered image
-        
-       // player1.render(g);
+        }
+        if(isGameOver)
+        {
+            objects.clear();
+            g.setFont(new Font("TimesRoman", Font.PLAIN, 50));
+            g.setColor(Color.red);
+            g.drawString("Game Over!", 500,450);
+        }
         //draws the buffered image onto the frame
         g2.drawImage(i/* this is the image that get's drawn*/, 0, 0, frame);
         
