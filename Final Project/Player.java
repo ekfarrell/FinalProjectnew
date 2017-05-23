@@ -42,8 +42,13 @@ public class Player extends GameObject{
         
     }//end of render method
     
-    /*public boolean shoot(){
-        isShooting = true;
-        return isShooting;
-    }*/
+    public boolean hitReg(GameObject g){
+        if( g.getX()>this.x-15&&g.getX()<this.x+15){
+            if (g.getY()<this.y+10&&g.getY() > this.y-15)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }//end of player class

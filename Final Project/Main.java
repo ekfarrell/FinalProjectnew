@@ -51,6 +51,10 @@ public class Main {
     int side;
     int astrocount = 0;
     
+    Image gameEnd;
+    
+    boolean isRunning = true;
+    
     //Main method runs the constructor
     public static void main(String[] args) {
         new Main();
@@ -68,7 +72,6 @@ public class Main {
     void init(){
         player1 = new Player(x,y,degrees,ID.Player);
         objects.add(player1);
-        
         //initializes the frame
         //The string inside is the name of the frame
         frame = new JFrame("Game");
@@ -92,6 +95,9 @@ public class Main {
         g = i.getGraphics();
         //sets g2 to be the graphics of the frame
         g2 = frame.getGraphics();
+        
+         Toolkit t=Toolkit.getDefaultToolkit();  
+         gameEnd=t.getImage("FinalProjectNew\\GameOver.png");  
        
     }
     /**
@@ -106,7 +112,7 @@ public class Main {
         
         
         //Make the game run until the window is closed
-        while(true){
+        while(isRunning){
             //gets the current time
             long time = System.currentTimeMillis();
             
@@ -219,20 +225,19 @@ public class Main {
            if (objects.get(i).getId() == ID.Player){
                objects.get(i).setAngularVelocity(0);
             }
-           
            if(objects.get(i).getX()<-51){
                if(objects.get(i).getId() == ID.Asteroid)
-                astrocount--;
+                    astrocount--;
                objects.remove(i);
                i--;
                continue;
             }
            if(objects.get(i).getX()>1251){
-            if(objects.get(i).getId() == ID.Asteroid)
-                astrocount--;
-            objects.remove(i);
-            i--;
-            continue;
+               if(objects.get(i).getId() == ID.Asteroid)
+                    astrocount--;
+               objects.remove(i);
+               i--;
+               continue;
             }
            if(objects.get(i).getY()<-51){
             if(objects.get(i).getId() == ID.Asteroid)
@@ -242,12 +247,11 @@ public class Main {
             continue;
             }     
            if(objects.get(i).getY()>951){
-            if(objects.get(i).getId() == ID.Asteroid)
-                astrocount--;
+               if(objects.get(i).getId() == ID.Asteroid)
+                    astrocount--;
                objects.remove(i);
-            i--;
-             
-            continue;
+               i--; 
+               continue;
            }
            if (astrocount < 10){
                 side = r.nextInt(4)+1;;
@@ -275,11 +279,48 @@ public class Main {
                     astroY = r.nextInt(900);
                     astroDegree = r.nextInt(90)-90;
                 }
-                    objects.add(new Asteroid(astroX,astroY,astroDegree,3,ID.Asteroid));
-                    astrocount++;
-            } 
-        }
+                objects.add(new Asteroid(astroX,astroY,astroDegree,3,ID.Asteroid));
+                astrocount++;
+            }
+            //ends the game if an asteroid hit the player
+           if(objects.get(i).getId() == ID.Asteroid)
+           {
+               if (player1.hitReg(objects.get(i)))
+               { 
+                   frame.dispose();
+                   String[] args={};
+                   GameOver.main(args);
+                  
+               }
+           }
+           //should breakup asteroid when they are hit by bullets
            
+           for (int j = 0; j<objects.size();j++){
+               if(objects.get(j).getId() == ID.Asteroid)
+               {
+                   if(objects.get(j).getX()+objects.get(j).getRadius() > objects.get(i).getX() && objects.get(j).getX() - objects.get(j).getRadius() < objects.get(i).getX())
+                   {
+                       if(objects.get(j).getY()+objects.get(j).getRadius() < objects.get(i).getY() &&
+                          objects.get(j).getY() - objects.get(j).getRadius() > objects.get(i).getY())
+                       {
+                           if(objects.get(j).getSize()-1 != 0){
+                               objects.add(new Asteroid(objects.get(j).getX()-30,objects.get(j).getY(),degrees+45,objects.get(j).getSize()-1,ID.Asteroid));
+                               objects.add(new Asteroid(objects.get(j).getX()+30,objects.get(j).getY(),degrees-45,objects.get(j).getSize()-1,ID.Asteroid));
+                               objects.remove(j);
+                           }
+                           else{
+                               objects.remove(j);
+                           }
+                      }
+                   }
+               }
+           }
+           
+        }
+       
+       
+           
+       
        
        
        

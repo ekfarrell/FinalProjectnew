@@ -11,15 +11,12 @@ import javax.swing.*;
 public class Asteroid extends GameObject
 {
     private int radius;
-    private int size;
-    //hello
     /**
      * Default constructor for objects of class Asteroid
      */
     public Asteroid(int x, int y, int degrees, int size, ID id)
     {
        super(x,y,degrees,id);
-       this.size = 3;
        //Bases the radius off of the size of the asteroid which is between 1 and 3
        if (size == 3){
            radius = 50;

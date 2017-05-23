@@ -40,4 +40,13 @@ public class Bullet extends GameObject
         }
         return false; 
     }
+    public boolean h(GameObject g){
+        if(g.getX()+g.getRadius() > this.x && g.getX() - g.getRadius() < this.x){
+            if (g.getY()+g.getRadius() > this.y && g.getY() - g.getRadius() < this.y)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }
