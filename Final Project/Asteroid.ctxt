@@ -1,8 +1,13 @@
 #BlueJ class context
-comment0.params=
-comment0.target=void\ tick()
-comment1.params=g
-comment1.target=void\ render(java.awt.Graphics)
-comment2.params=
-comment2.target=java.util.LinkedList\ destroy()
-numComments=3
+comment0.params=x\ y\ degrees\ size\ id
+comment0.target=Asteroid(int,\ int,\ int,\ int,\ ID)
+comment0.text=\r\n\ Default\ constructor\ for\ objects\ of\ class\ Asteroid\r\n
+comment1.params=
+comment1.target=void\ tick()
+comment2.params=g
+comment2.target=void\ render(java.awt.Graphics)
+comment3.params=
+comment3.target=java.util.LinkedList\ destroy()
+comment4.params=objects
+comment4.target=boolean\ hitReg(java.util.LinkedList)
+numComments=5
