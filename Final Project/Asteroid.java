@@ -12,6 +12,7 @@ public class Asteroid extends GameObject
 {
     private int radius;
     private int size;
+    //hello
     /**
      * Default constructor for objects of class Asteroid
      */
