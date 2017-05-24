@@ -228,9 +228,6 @@ public class Main {
     void draw(){ 
        g.setColor(Color.black);
        g.fillRect(0, 0, gameWidth, gameHeight);
-       g.setFont(new Font("TimesRoman", Font.PLAIN, 16));
-       g.setColor(Color.red);
-       g.drawString(" " + score, 500,25);
         //Asteroid newAstro = new Asteroid(astroX,astroY,astroDegree,3,ID.Asteroid);
         
        //objects.add(new Player(x,y,degrees,ID.Player));
