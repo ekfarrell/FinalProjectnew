@@ -54,7 +54,7 @@ public class Main {
     int firingrate;
     
     Image gameEnd;
-    
+    int score;
     boolean isRunning = true;
     boolean isGameOver= false;
     
@@ -74,7 +74,8 @@ public class Main {
     }
     
     void init(){
-       firingrate = 0;
+        score = 0;
+        firingrate = 0;
         player1 = new Player(x,y,degrees,ID.Player);
         objects.add(player1);
         //initializes the frame
@@ -227,7 +228,9 @@ public class Main {
     void draw(){ 
        g.setColor(Color.black);
        g.fillRect(0, 0, gameWidth, gameHeight);
-      
+       g.setFont(new Font("TimesRoman", Font.PLAIN, 16));
+       g.setColor(Color.red);
+       g.drawString(" " + score, 500,25);
         //Asteroid newAstro = new Asteroid(astroX,astroY,astroDegree,3,ID.Asteroid);
         
        //objects.add(new Player(x,y,degrees,ID.Player));
@@ -342,6 +345,7 @@ public class Main {
                                   objects.remove(i);
                                   astrocount--;
                                   i--;
+                                  score += 10;
                               }
                               else{
                                   objects.add(new Asteroid(objects.get(i).getX(),objects.get(j).getY(),degrees+45,objects.get(i).getSize()-1,ID.Asteroid));
@@ -349,6 +353,7 @@ public class Main {
                                   objects.remove(i);
                                   i--;
                                   Bach.playsplit();
+                                  score += 10;
                                   if(j<i){
                                       objects.remove(j);
                                       j--;
