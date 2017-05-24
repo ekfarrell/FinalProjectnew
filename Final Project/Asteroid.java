@@ -16,16 +16,20 @@ public class Asteroid extends GameObject
     public Asteroid(int x, int y, int degrees, int size, ID id)
     {
        super(x,y,degrees,id);
+       this.setSize(size);
        //Bases the radius off of the size of the asteroid which is between 1 and 3
        if (size == 3){
-           radius = 50;
+           this.setRadius(50);
        }
        else if (size == 2){
-           radius = 30;
+            this.setRadius(30);
        }
        else if (size == 1){
-           radius = 15;
-        }
+            this.setRadius(15);
+       }
+       else{
+            this.setRadius(0);
+       }
     }
     
     public void tick(){
@@ -40,14 +44,7 @@ public class Asteroid extends GameObject
     
     public void render(Graphics g){
         g.setColor(Color.gray);
-        g.fillOval(x,y,radius,radius);
-    }
-    
-    public LinkedList<Asteroid> destroy(){
-        LinkedList<Asteroid> astrolist = new LinkedList<Asteroid>();
-        astrolist.add(new Asteroid(this.x-20,this.y,degrees+45,this.size-1,ID.Asteroid));
-        astrolist.add(new Asteroid(this.x-20,this.y,degrees-45,this.size-1,ID.Asteroid));
-        return astrolist;
+        g.fillOval(x,y,this.getRadius(),this.getRadius());
     }
     
      public boolean hitReg(LinkedList<GameObject> objects){

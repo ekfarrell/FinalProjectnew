@@ -51,6 +51,8 @@ public class Main {
     int side;
     int astrocount = 0;
     
+    int firingrate;
+    
     Image gameEnd;
     
     boolean isRunning = true;
@@ -71,6 +73,7 @@ public class Main {
     }
     
     void init(){
+       firingrate = 0;
         player1 = new Player(x,y,degrees,ID.Player);
         objects.add(player1);
         //initializes the frame
@@ -143,7 +146,11 @@ public class Main {
      * Changes the coordinates of the shape based on input
      */
     void update(){
-        
+        //allows control of the firing rate
+        firingrate++;
+        if (firingrate == 60){
+               firingrate = 0;
+            }
        
         //if the up arrow key is down
         if(handler.isKeyDown(KeyEvent.VK_UP))
@@ -180,7 +187,10 @@ public class Main {
         }
         
         if(handler.isKeyDown(KeyEvent.VK_SPACE)){
-            objects.add(new Bullet(player1.getX(),player1.getY(),player1.getDegrees(),ID.Bullet));
+           if(firingrate%6 == 0 || firingrate%6 == 3){
+               objects.add(new Bullet(player1.getX(),player1.getY(),player1.getDegrees(),ID.Bullet));
+           }
+           
            // Sound.SOUND1.play();
         }
         
@@ -332,10 +342,10 @@ public class Main {
                                   i--;
                                 }
                               else{
-                                  objects.add(new Asteroid(objects.get(i).getX()-30,objects.get(j).getY(),degrees+45,objects.get(i).getSize()-1,ID.Asteroid));
-                                  objects.add(new Asteroid(objects.get(i).getX()+30,objects.get(j).getY(),degrees-45,objects.get(i).getSize()-1,ID.Asteroid));
+                                  objects.add(new Asteroid(objects.get(i).getX(),objects.get(j).getY(),degrees+45,objects.get(i).getSize()-1,ID.Asteroid));
+                                  objects.add(new Asteroid(objects.get(i).getX(),objects.get(j).getY(),degrees-45,objects.get(i).getSize()-1,ID.Asteroid));
                                   objects.remove(i);
-                                  astrocount--;
+                                  astrocount ++;
                                   i--;
                               }
                           }
