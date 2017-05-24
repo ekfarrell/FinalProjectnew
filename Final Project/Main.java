@@ -58,6 +58,7 @@ public class Main {
     boolean isRunning = true;
     boolean isGameOver= false;
     
+    SoundforGame Bach = new SoundforGame();
     //Main method runs the constructor
     public static void main(String[] args) {
         new Main();
@@ -102,8 +103,7 @@ public class Main {
         //sets g2 to be the graphics of the frame
         g2 = frame.getGraphics();
         
-         Toolkit t=Toolkit.getDefaultToolkit();  
-         gameEnd=t.getImage("FinalProjectNew\\GameOver.png");  
+        Bach.playstartup();
        
     }
     /**
@@ -189,6 +189,7 @@ public class Main {
         if(handler.isKeyDown(KeyEvent.VK_SPACE)){
            if(firingrate%6 == 0 || firingrate%6 == 3){
                objects.add(new Bullet(player1.getX(),player1.getY(),player1.getDegrees(),ID.Bullet));
+               Bach.playlaser();
            }
            
            // Sound.SOUND1.play();
@@ -301,6 +302,7 @@ public class Main {
                if (player1.hitReg(objects.get(i)))
                { 
                    isGameOver = true;
+                   Bach.playshipdeath();
                }
            }
            //should breakup asteroid when they are hit by bullets
@@ -347,6 +349,7 @@ public class Main {
                                   objects.remove(i);
                                   astrocount ++;
                                   i--;
+                                  Bach.playsplit();
                               }
                           }
                       }
