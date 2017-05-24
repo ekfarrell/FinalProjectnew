@@ -10,7 +10,6 @@ import javax.swing.*;
  */
 public class Asteroid extends GameObject
 {
-    private int radius;
     /**
      * Default constructor for objects of class Asteroid
      */
@@ -26,10 +25,7 @@ public class Asteroid extends GameObject
        }
        else if (size == 1){
            radius = 15;
-       }
-       else{
-           radius = 50;
-       }
+        }
     }
     
     public void tick(){

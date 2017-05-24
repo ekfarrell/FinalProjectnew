@@ -290,7 +290,6 @@ public class Main {
            {
                if (player1.hitReg(objects.get(i)))
                { 
-                   //objects.remove(player1);
                    isGameOver = true;
                }
            }
@@ -332,22 +331,22 @@ public class Main {
                                   objects.add(new Asteroid(objects.get(i).getX()+30,objects.get(j).getY(),degrees-45,objects.get(i).getSize()-1,ID.Asteroid));
                                   objects.remove(j);
                                 }
-                                else{
-                                    objects.remove(j);
-                                }
+                              else{
+                                  objects.remove(j);
+                              }
                           }
                       }
                    }
                }
            }
         }
-        if(isGameOver)
-        {
-            objects.clear();
-            g.setFont(new Font("TimesRoman", Font.PLAIN, 50));
-            g.setColor(Color.red);
-            g.drawString("Game Over!", 500,450);
-        }
+       if(isGameOver)
+       {
+           objects.clear();
+           g.setFont(new Font("TimesRoman", Font.PLAIN, 50));
+           g.setColor(Color.red);
+           g.drawString("Game Over!", 500,450);
+       }
         //draws the buffered image onto the frame
         g2.drawImage(i/* this is the image that get's drawn*/, 0, 0, frame);
         
