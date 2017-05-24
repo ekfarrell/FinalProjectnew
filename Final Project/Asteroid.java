@@ -18,13 +18,13 @@ public class Asteroid extends GameObject
        super(x,y,degrees,id);
        this.setSize(size);
        //Bases the radius off of the size of the asteroid which is between 1 and 3
-       if (size == 3){
+       if (this.getSize() == 3){
            this.setRadius(50);
        }
-       else if (size == 2){
+       else if (this.getSize() == 2){
             this.setRadius(30);
        }
-       else if (size == 1){
+       else if (this.getSize() == 1){
             this.setRadius(15);
        }
        else{

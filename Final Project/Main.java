@@ -187,8 +187,8 @@ public class Main {
         }
         
         if(handler.isKeyDown(KeyEvent.VK_SPACE)){
-           if(firingrate%6 == 0 || firingrate%6 == 3){
-               objects.add(new Bullet(player1.getX(),player1.getY(),player1.getDegrees(),ID.Bullet));
+           if(firingrate%10 == 0){
+               objects.add(new Bullet(player1.getX(),player1.getY(), player1.getDegrees(),ID.Bullet));
                Bach.playlaser();
            }
            
@@ -342,8 +342,9 @@ public class Main {
                                   objects.remove(i);
                                   astrocount--;
                                   i--;
-                                }
+                              }
                               else{
+                                  System.out.println(objects.get(i).getSize()-1);
                                   objects.add(new Asteroid(objects.get(i).getX(),objects.get(j).getY(),degrees+45,objects.get(i).getSize()-1,ID.Asteroid));
                                   objects.add(new Asteroid(objects.get(i).getX(),objects.get(j).getY(),degrees-45,objects.get(i).getSize()-1,ID.Asteroid));
                                   objects.remove(i);
