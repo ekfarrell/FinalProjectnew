@@ -155,8 +155,8 @@ public class Main {
         //if the up arrow key is down
         if(handler.isKeyDown(KeyEvent.VK_UP))
         { 
-         player1.setX(player1.getX() + (int)(Math.cos(Math.toRadians((player1.getDegrees()-130)*-1)) *  5 + (Math.sin(Math.toRadians((player1.getDegrees()-130)*-1)) * 5)));
-         player1.setY(player1.getY() - (int)(-Math.cos(Math.toRadians((player1.getDegrees()-130)*-1)) * 5 + Math.sin(Math.toRadians((player1.getDegrees()-130)*-1)) * 5));
+         player1.setX(player1.getX() + (int)(Math.cos(Math.toRadians((player1.getDegrees()-130)*-1)) *  3 + (Math.sin(Math.toRadians((player1.getDegrees()-130)*-1)) * 3)));
+         player1.setY(player1.getY() - (int)(-Math.cos(Math.toRadians((player1.getDegrees()-130)*-1)) * 3 + Math.sin(Math.toRadians((player1.getDegrees()-130)*-1)) * 3));
          // x += Math.cos(Math.toRadians((degrees-120)*-1)) *  5 + Math.sin(Math.toRadians((degrees-120)*-1)) * 5;
          //y -= -Math.cos(Math.toRadians((degrees-120)*-1)) * 5 + Math.sin(Math.toRadians((degrees-120)*-1)) * 5;
           
@@ -172,8 +172,8 @@ public class Main {
         //If the down arrow key is down
         if(handler.isKeyDown(KeyEvent.VK_DOWN))
         {
-            player1.setX(player1.getX() - (int)(Math.cos(Math.toRadians((player1.getDegrees()-130)*-1)) *  5 + (Math.sin(Math.toRadians((player1.getDegrees()-130)*-1)) * 5)));
-            player1.setY(player1.getY() + (int)(-Math.cos(Math.toRadians((player1.getDegrees()-130)*-1)) * 5 + Math.sin(Math.toRadians((player1.getDegrees()-130)*-1)) * 5));
+            player1.setX(player1.getX() - (int)(Math.cos(Math.toRadians((player1.getDegrees()-130)*-1)) * 3 + (Math.sin(Math.toRadians((player1.getDegrees()-130)*-1)) * 3)));
+            player1.setY(player1.getY() + (int)(-Math.cos(Math.toRadians((player1.getDegrees()-130)*-1)) * 3 + Math.sin(Math.toRadians((player1.getDegrees()-130)*-1)) * 3));
           // x -= Math.cos(Math.toRadians((degrees-120)*-1)) *  5 + Math.sin(Math.toRadians((degrees-120)*-1)) * 5;
           // y += -Math.cos(Math.toRadians((degrees-120)*-1)) * 5 + Math.sin(Math.toRadians((degrees-120)*-1)) * 5;
           if(player1.getX()<15)
@@ -338,19 +338,25 @@ public class Main {
                            if(objects.get(i).getY()+objects.get(i).getRadius() > objects.get(j).getY() &&
                               objects.get(i).getY() - objects.get(i).getRadius() < objects.get(j).getY())
                           {
-                              if(objects.get(j).getSize()== 0){
+                              if(objects.get(i).getSize()== 0){
                                   objects.remove(i);
                                   astrocount--;
                                   i--;
                               }
                               else{
-                                  System.out.println(objects.get(i).getSize()-1);
                                   objects.add(new Asteroid(objects.get(i).getX(),objects.get(j).getY(),degrees+45,objects.get(i).getSize()-1,ID.Asteroid));
                                   objects.add(new Asteroid(objects.get(i).getX(),objects.get(j).getY(),degrees-45,objects.get(i).getSize()-1,ID.Asteroid));
                                   objects.remove(i);
-                                  astrocount ++;
                                   i--;
                                   Bach.playsplit();
+                                  if(j<i){
+                                      objects.remove(j);
+                                      j--;
+                                  }
+                                  else{
+                                      objects.remove(j-1);
+                                      j--;
+                                  }
                               }
                           }
                       }
