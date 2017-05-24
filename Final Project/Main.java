@@ -326,13 +326,17 @@ public class Main {
                            if(objects.get(i).getY()+objects.get(i).getRadius() > objects.get(j).getY() &&
                               objects.get(i).getY() - objects.get(i).getRadius() < objects.get(j).getY())
                           {
-                              if(objects.get(j).getSize()-1 != 0){
-                                  objects.add(new Asteroid(objects.get(i).getX()-30,objects.get(j).getY(),degrees+45,objects.get(i).getSize()-1,ID.Asteroid));
-                                  objects.add(new Asteroid(objects.get(i).getX()+30,objects.get(j).getY(),degrees-45,objects.get(i).getSize()-1,ID.Asteroid));
-                                  objects.remove(j);
+                              if(objects.get(j).getSize()== 0){
+                                  objects.remove(i);
+                                  astrocount--;
+                                  i--;
                                 }
                               else{
-                                  objects.remove(j);
+                                  objects.add(new Asteroid(objects.get(i).getX()-30,objects.get(j).getY(),degrees+45,objects.get(i).getSize()-1,ID.Asteroid));
+                                  objects.add(new Asteroid(objects.get(i).getX()+30,objects.get(j).getY(),degrees-45,objects.get(i).getSize()-1,ID.Asteroid));
+                                  objects.remove(i);
+                                  astrocount--;
+                                  i--;
                               }
                           }
                       }
