@@ -60,9 +60,6 @@ public class Main {
     
     SoundforGame Bach = new SoundforGame();
     //Main method runs the constructor
-    public static void main(String[] args) {
-        new Main();
-    }
     /**
      * Main method for the constructor which runs the run method to start the game
      */
@@ -154,7 +151,7 @@ public class Main {
             }
        
         //if the up arrow key is down
-        if(handler.isKeyDown(KeyEvent.VK_UP))
+        if(handler.isKeyDown(KeyEvent.VK_UP)&&isGameOver == false)
         { 
          player1.setX(player1.getX() + (int)(Math.cos(Math.toRadians((player1.getDegrees()-130)*-1)) *  3 + (Math.sin(Math.toRadians((player1.getDegrees()-130)*-1)) * 3)));
          player1.setY(player1.getY() - (int)(-Math.cos(Math.toRadians((player1.getDegrees()-130)*-1)) * 3 + Math.sin(Math.toRadians((player1.getDegrees()-130)*-1)) * 3));
@@ -171,7 +168,7 @@ public class Main {
                 player1.setY(gameHeight);        
         }
         //If the down arrow key is down
-        if(handler.isKeyDown(KeyEvent.VK_DOWN))
+        if(handler.isKeyDown(KeyEvent.VK_DOWN)&& isGameOver == false)
         {
             player1.setX(player1.getX() - (int)(Math.cos(Math.toRadians((player1.getDegrees()-130)*-1)) * 3 + (Math.sin(Math.toRadians((player1.getDegrees()-130)*-1)) * 3)));
             player1.setY(player1.getY() + (int)(-Math.cos(Math.toRadians((player1.getDegrees()-130)*-1)) * 3 + Math.sin(Math.toRadians((player1.getDegrees()-130)*-1)) * 3));
@@ -187,7 +184,7 @@ public class Main {
                 player1.setY(gameHeight);
         }
         
-        if(handler.isKeyDown(KeyEvent.VK_SPACE)){
+        if(handler.isKeyDown(KeyEvent.VK_SPACE)&& isGameOver == false){
            if(firingrate%10 == 0){
                objects.add(new Bullet(player1.getX(),player1.getY(), player1.getDegrees(),ID.Bullet));
                Bach.playlaser();
@@ -197,18 +194,22 @@ public class Main {
         }
         
          //if the left arrow key is down
-        if(handler.isKeyDown(KeyEvent.VK_LEFT))
+        if(handler.isKeyDown(KeyEvent.VK_LEFT)&& isGameOver == false)
         {
             degrees-=5;
             player1.setAngularVelocity(-5);
         }
         //if the right arrow key is pressed
-        if(handler.isKeyDown(KeyEvent.VK_RIGHT))
+        if(handler.isKeyDown(KeyEvent.VK_RIGHT) && isGameOver == false)
         {
             degrees+=5;
             player1.setAngularVelocity(5);
         }
-        
+        if(handler.isKeyDown(KeyEvent.VK_ENTER) && isGameOver == true){
+            frame.setVisible(false);
+            new MainMenu();
+            isRunning = false;
+        }
         
         //Moves the ship to where you click
         /*if(handler.isMouseDown(1)){
@@ -216,10 +217,10 @@ public class Main {
             y = handler.getEvent(1).getY() - shapeLength/2;
         }*/
         //If the escape key is pressed it exits the game
-        if(handler.isKeyDown(KeyEvent.VK_ESCAPE))
+        /*if(handler.isKeyDown(KeyEvent.VK_ESCAPE))
         {
             System.exit(-1);
-        }
+        }*/
         
     }
     /**
@@ -365,6 +366,9 @@ public class Main {
                    }
                }
            }
+           g.setColor(Color.red);
+           g.setFont(new Font("TimesNewRoman", Font.PLAIN, 20));
+           g.drawString(score + " ",500,100);
         }
        if(isGameOver)
        {
@@ -372,6 +376,9 @@ public class Main {
            g.setFont(new Font("TimesRoman", Font.PLAIN, 50));
            g.setColor(Color.red);
            g.drawString("Game Over!", 500,450);
+           g.drawString("your score is " + score,500,600);
+           g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+           g.drawString("Hit enter to go back to the main menu",500,300);
        }
         //draws the buffered image onto the frame
         g2.drawImage(i/* this is the image that get's drawn*/, 0, 0, frame);

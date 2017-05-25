@@ -25,7 +25,6 @@ public class InputHandler {
             public void keyReleased(KeyEvent e) {
                 //if the key is released sets it's position in the boolean array to false
                 keys[e.getKeyCode()] = false;
-                
             }
             public void keyPressed(KeyEvent e) {
                 //if key is pressed it sets it's position in the boolean array to true
@@ -72,14 +71,13 @@ public class InputHandler {
     }
     /**
      * 
-     * @    param button
+     * @param button
      * @return the boolean at the mouse array position or false if invalid input
      */
     public boolean isMouseDown(int button){
         if(button > 0 && button <= 3){
             return mouse[button];
         }
-        
         return false;
     }
     //returns the mouse event when the mouse button is pressed
@@ -90,8 +88,8 @@ public class InputHandler {
      */
     public MouseEvent getEvent(int event){
         if(event > 0 && event <= 3){
-        return mEvent[event];
-    }
+            return mEvent[event];
+        }
         return null;
     }
 }
